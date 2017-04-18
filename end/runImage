@@ -1,0 +1,1 @@
+docker run -i -p 8080:5000 -v $(pwd):/app -t mydemos:aspnetcore_run

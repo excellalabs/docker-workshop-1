@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+
+  web:
+    container_name: 'aspnetcore-from-compose'
+    image: 'aspnetcore-from-compose'
+    build:
+      context: .
+      dockerfile: Dockerfile.EntrypointScript
+    volumes:
+      - .:/app
+    entrypoint: ["sh", "./go.sh"] 
+    ports:
+     - "5000:5000"
+    depends_on:
+     - "postgres"
+    networks:
+      - aspnetcoreapp-network
+
+  postgres:
+    container_name: 'postgres-from-compose'
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+      - aspnetcoreapp-network
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
+
+volumes:
+ postgres: {}
