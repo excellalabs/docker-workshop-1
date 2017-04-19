@@ -5,8 +5,8 @@ FROM microsoft/dotnet:1.0.1-sdk-projectjson
 # This is good for deployed apps as it will be minimal, and no SDK 
 # FROM microsoft/dotnet:1.0.1-core 
 
-# set up network
 EXPOSE 5000/tcp
+
 ENV ASPNETCORE_URLS http://*:5000
 
 # copy files from current directory to target on image 
@@ -17,22 +17,13 @@ RUN ["dotnet", "restore"]
 RUN ["dotnet", "build"]
 ENTRYPOINT ["dotnet", "watch", "run"]
 
+##################################### REFERENCE: #################################################
+# USAGE - build image, and expose ports, map the current app folder: 
 
+#   docker build -t aspnetcore-development-env .
+#		docker run -it -p 5000:5000 -v $(pwd):/app -t aspnetcore-development-env
 
-
-# REFERENCE: 
-
-#-------------------------------------------------------------------------------------------------
-# USAGE - build image, and expose ports, the current app folder: 
-# 		docker build -t aspnet-demo .
-#		docker run -it -p 5000:5000 -v $(pwd):/app -t aspnet-demo 
-
-# REFERENCE: https://github.com/aspnet/aspnet-docker/blob/master/1.0.1/jessie/product/Dockerfile
-
-
-#-------------------------------------------------------------------------------------------------
 # FOR MULTIPLE CONTAINERS
-# docker build -f aspnetcore.development.dockerfile -t [yourDockerHubID]/dotnet:1.0.0 
 
 # Option 1
 # Start PostgreSQL and ASP.NET Core (link ASP.NET core to ProgreSQL container with legacy linking)

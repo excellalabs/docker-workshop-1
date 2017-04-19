@@ -33,7 +33,7 @@ namespace ConsoleApplication
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<ArticlesContext>(options => options
                     .UseNpgsql("User ID=postgres;Password=password;Server=postgres;Port=5432;Database=MyTestDb;Integrated Security=true;Pooling=true;"));
-
+                    
             services.AddScoped<IArticlesRepository, ArticlesRepository>();
         }
 
@@ -50,18 +50,24 @@ namespace ConsoleApplication
 
             app.UseMvc();
 
-            // DB INITIALIZATION: Create DB on startup
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            try 
             {
-                serviceScope.ServiceProvider.GetService<ArticlesContext>().Database.Migrate();
+                // DB INITIALIZATION: Create DB on startup
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    serviceScope.ServiceProvider.GetService<ArticlesContext>().Database.Migrate();
+                }
             }
-
+            catch 
+            {
+                // no database 
+            }            
+            
             startupLogger.LogTrace("Trace test output!");
             startupLogger.LogDebug("Debug test output!");
             startupLogger.LogInformation("Info test output!");
             startupLogger.LogError("Error test output!");
             startupLogger.LogCritical("Trace test output!");
-            
         }
     }
 }

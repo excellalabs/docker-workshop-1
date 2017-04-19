@@ -19,13 +19,33 @@ Objectives:
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-      `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+    1. In your command line, go to the root directory of some source code.
+    1. Run:
+      
+        `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
 
-## Part 2. Build a container for app
+    1. Now you can change your source code, and the container will rebuild and run the app when you save changes. 
+
+## Part 2. Build your own container for an app
 
 1. Create a new file in the root of your source directory, called `Dockerfile` (no extension). 
 
     Take a look at the Dockerfile in the repo's end folder. This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET. You can build the ASP.NET Core container from the provided Dockerfile, following these steps. 
+
+      ```
+      FROM microsoft/dotnet:1.0.1-sdk-projectjson
+
+      EXPOSE 5000/tcp
+
+      ENV ASPNETCORE_URLS http://*:5000
+
+      COPY . /app 
+      WORKDIR /app
+
+      RUN ["dotnet", "restore"]
+      RUN ["dotnet", "build"]
+      ENTRYPOINT ["dotnet", "watch", "run"]
+      ```
 
 1. Copy the contents into your `Dockerfile`, and run this command in the same directory as the file:
 
@@ -33,9 +53,7 @@ Objectives:
 
 1. See that your image was created correct from the build step above, by listing the images on your machine, by typing `docker images`. You should see it in the list.
 
-    Then you can create new containers based off this image, which we'll do in the next step. Note, your application code will be in this container. 
-
-    For instructions on how to quickly get started with Docker if you don't have it installed and haven't used it, take a look at this article, [Getting Started with Docker and .NET Core on OS X](https://www.excella.com/insights/getting-started-with-docker-and-net-core-on-os-x).
+Then you can create new containers based off this image, which we'll do in the next step. Note, your application code will be in this container. 
 
 ## Part 3: Run the container
 
@@ -51,13 +69,13 @@ Use the following docker run command, specifying a port binding for listening, t
 
 ## Part 4. Docker Compose
 
-You can use Docker Compose to spin up multiple containers at once, in order to create a multi-server environmnet. The most common example would be to spin up a container running the application, and a container running the database. 
+You can use Docker Compose to spin up multiple containers at once, in order to create a multi-server environmnet. The most common example would be to spin up a container running the application, and a container running the database.
 
 There is a `docker-compose.yml` file in the repo that use Docker Compose to spin up an ASP.NET Core container, and a postgreSQL container.
 
 1. Create a file in the root of your app source called `docker.compose.yml`
 
-1. Copy the content from the `docker-compose.yml` file in the repo's end folder. 
+1. Copy the content from the `docker-compose.yml` file in the repo's end folder, to your file.
 
 1. Build the images and run them by running this from the command line:
 
@@ -67,6 +85,10 @@ There is a `docker-compose.yml` file in the repo that use Docker Compose to spin
 
 1. Check that your app is running and accessible. 
 
+1. Now that you have a databasec contianer running, you can add some data and then query it. Run this to add some, 
+
+    `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
+    
 1. Stop the containers:
 
     `docker-compose stop`

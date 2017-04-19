@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -16,20 +16,20 @@ services:
     depends_on:
      - "postgres"
     networks:
-      - aspnetcoreapp-network
+      - app-network
 
   postgres:
     container_name: 'postgres-from-compose'
     image: postgres
     environment:
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: pgPassword
     networks:
-      - aspnetcoreapp-network
+      - app-network
     volumes:
       - 'postgres:/var/lib/postgresql/data'
 
 networks:
-  aspnetcoreapp-network:
+  app-network:
     driver: bridge
 
 volumes:
