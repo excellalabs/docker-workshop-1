@@ -7,9 +7,10 @@ Objectives:
 - Run a container from Docker Hub
 - Create a container for building and running the provided sample app locally. The source code will be mounted into the container.
 - Make code changes and go through the development workflow with a container
-- Use Compose to run multiple containers easily 
+- Use Compose to run multiple containers easily
+- An accompanying slide deck can be found [here](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-75189136) for delivering this workshop to a group.
 
-## Part 1. Install & Run Docker 
+## Part 1. Install Docker & Run a Container
 
 1. Follow Docker's **installation instructions** for your platform, including the section for **testing it** to ensure it's working.
 
@@ -17,24 +18,17 @@ Objectives:
 
     - [Install & set up for Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac?tab=description)
 
+1. Clone this repo for the workshop somewhere, and go into the start/ directory.
+
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-    1. In your command line, go to the root directory of some source code.
-    1. Run:
-      
-        `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+    `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
 
-    1. Now you can change your source code, and the container will rebuild and run the app when you save changes. 
+1. Now you can change your source code, and the container will rebuild and run the app when you save changes. Open the source directory with your favorite IDE and try it.
 
 ## Part 2. Build your own container for an app
 
-1. Clone the repo, `https://github.com/excellalabs/docker-workshop-1`
-
-1. Navigate into the start/ folder, which is the source code for the sample app
-
-1. Create a new file in the source directory called `Dockerfile` (no extension). 
-
-    Take a look at the Dockerfile in the repo's end folder. This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET. You can build the ASP.NET Core container from the provided Dockerfile, following these steps. 
+1. Ctrl-C to stop the container. In the start/ directory, create a new file in the source directory called `Dockerfile` (no extension). We will continue to use the sample app in this folder for Dockerizing.
 
       ```
       FROM microsoft/dotnet:1.0.1-sdk-projectjson
@@ -51,13 +45,15 @@ Objectives:
       ENTRYPOINT ["dotnet", "watch", "run"]
       ```
 
-1. Copy the contents into your `Dockerfile`, and run this command in the same directory as the file:
+This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET, copying in source code, and building and running the app.
+
+1. Run this command to build an image from the Dockerfile:
 
     ```docker build -t <yourTag:YourAspNetImageName> .```
 
 1. See that your image was created correct from the build step above, by listing the images on your machine, by typing `docker images`. You should see it in the list.
 
-Then you can create new containers based off this image, which we'll do in the next step. Note, your application code will be in this container. 
+Then you can create new containers based off this image, which we'll do in the next part.
 
 ## Part 3: Run the container
 
@@ -65,106 +61,127 @@ Use the following docker run command, specifying a port binding for listening, t
 
 1. Go to your ASP.NET Core app's directory (or an empty directory for a new app)
 
-    `docker run -d -p 8080:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
+    `docker run -it -p 5000:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
-1. Check that the app is running and accessible.
+1. Check that the app is running and accessible by browsing to [http://localhost:5000/api/helloworld](http://localhost:5000/api/helloworld)
 
 ## Part 4. Docker Compose
 
 You can use Docker Compose to spin up multiple containers at once, in order to create a multi-server environmnet. The most common example would be to spin up a container running the application, and a container running the database.
 
-There is a `docker-compose.yml` file in the repo that use Docker Compose to spin up an ASP.NET Core container, and a postgreSQL container.
+We're going to create a `docker-compose.yml` file in the repo that use Docker Compose to spin up an ASP.NET Core container again, but also a postgreSQL container that it will be able to talk to. It will automatically look for, find and use the official PostgreSQL image on Docker Hub. When you don't specific a image repo, it will by default check Docker Hub.
 
-1. Create a file in the root of your app source called `docker.compose.yml`
+The app will talk to the container with the database engine, use a volume to map the database data file onto the host (so it persists even if the container doesn't), and see there is no database, and create one.
 
-    ```
-    version: '3'
+1. Create a file in the root of your app source called `docker-compose.yml` and add the following:
 
-    services:
+```
+version: '3'
 
-      web:
-        container_name: 'aspnetcore-from-compose'
-        image: 'aspnetcore-from-compose'
-        build:
-          context: .
-          dockerfile: Dockerfile
-        volumes:
-          - .:/app
-        entrypoint: ["sh", "./go.sh"] 
-        ports:
-        - "5000:5000"
-        depends_on:
-        - "postgres"
-        networks:
-          - app-network
+services:
 
-      postgres:
-        container_name: 'postgres-from-compose'
-        image: postgres
-        environment:
-          POSTGRES_PASSWORD: pgPassword
-        networks:
-          - app-network
-        volumes:
-          - 'postgres:/var/lib/postgresql/data'
-
-    networks:
-      app-network:
-        driver: bridge
-
+  web:
+    container_name: 'aspnetcore-from-compose'
+    image: 'aspnetcore-from-compose'
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-    postgres: {}
-    ```
+      - .:/app
+    entrypoint: ["sh", "./go.sh"] 
+    ports:
+    - "5000:5000"
+    depends_on:
+    - "postgres"
+    networks:
+      - app-network
 
-1. Modify your Dockerfile to remove the last 3 lines, the 2 that run commands, and the entrypoint. We are defining this in docker-compose now, and calling a script. 
+  postgres:
+    container_name: 'postgres-from-compose'
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+      - app-network
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres: {}
+```
+
+1. Modify your Dockerfile to remove these (last 3) lines. We are defining this in docker-compose now, and calling a script:
+
+  ```
+  RUN ["dotnet", "restore"]
+  RUN ["dotnet", "build"]
+  ENTRYPOINT ["dotnet", "watch", "run"]
+  ```
 
 1. Build the images and run them by running this from the command line:
 
     `docker-compose up`
 
-    You can add -d at the end so the containers run in the background; without it they would stop when you exit the shell. You can connect to the shell via 'docker exec -ti <Container> sh`.
+1. Check that your app is running and accessible at [http://localhost:5000/api/articles](http://localhost:5000/api/articles).
 
-1. Check that your app is running and accessible. 
-
-1. Now that you have a databasec contianer running, you can add some data and then query it. Run this to add some, 
+1. Now that you have a databasec contianer running, you can add some data and then query it. Run this to add some then reload the URL,
 
     `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
     
-1. Stop the containers:
-
-    `docker-compose stop`
-
-    With them running, you should be able to navigate to your web app (or the Web API sample endpoint in this app - http://localhost:8080/api/articles). You should be able to develop as usual on your computer, but when you save, your code is rebuilt in the ASP.NET container, and then run from there. You can try changing the /Controllers/ArticlesController.cs code and see it update at that endpoint, which is being hosted from the ASP.NET container.
+1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
+ 
+1. You should be able to develop as usual on your computer, using the full development workflow with Docker with a real-world-like app. Go ahead and try changing the source code again and saving, and see the app update.
 
 ## Part 5. Clean up
 
-- `docker rm $(docker rm -a)`
-- `docker rmi $(docker images -f dangling=true)`
-- `docker system prune`
+It's important to clean up unused stopped containers, old images, etc.
+
+- Remove all stopped containers:
+
+  `docker rm $(docker rm -a)`
+
+- Remove all dangling images:
+
+  `docker rmi $(docker images -f dangling=true)`
+
+- Remove all unused containers, volumes, networks and dangling images (add -a to remove any unreferenced images as well):
+
+  `docker system prune`
 
 ## Useful commands
 
-- It is useful to log into your containers. To do that, use this: 
+- List your containers (-a shows stopped ones too):
+
+  `docker ps -a`
+
+- List your images: 
+
+  `docker images`
+
+- It is useful to log into your containers sometimes. To do that, use this:
 
   `docker exec -ti <Container name> sh`
 
-- Check the logs from your containers: 
+- Check the logs from your containers:
 
-    1. Type `docker ps -a` to get the name or ID of your container
-    1. Type  `docker logs <container ID or name>`
+  `docker logs <container ID or name>`
 
-- Inspect your container(s): 
+- Inspect your container(s):
 
   `docker inspect <container ID/name>`
 
-- View and manage volumes, 
+- View and manage volumes,
 
   - `docker volume ls`
   - `docker volume inspect <name>`
 
-- View and manage networks, 
+- View and manage networks,
 
-  - `docker network ls` 
+  - `docker network ls`
   - `docker network inspect <name>`

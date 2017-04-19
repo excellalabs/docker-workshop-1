@@ -22,7 +22,7 @@ services:
     container_name: 'postgres-from-compose'
     image: postgres
     environment:
-      POSTGRES_PASSWORD: pgPassword
+      POSTGRES_PASSWORD: password
     networks:
       - app-network
     volumes:
