@@ -105,7 +105,7 @@ services: # these are all the services that a docker app uses
     depends_on:
     - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service. 
     networks:
-      - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other.
+      - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other. Note all the services we define here use the "app-network" network.
 
   postgres:
     container_name: 'postgres-from-compose'
