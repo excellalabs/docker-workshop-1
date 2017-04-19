@@ -75,7 +75,46 @@ There is a `docker-compose.yml` file in the repo that use Docker Compose to spin
 
 1. Create a file in the root of your app source called `docker.compose.yml`
 
-1. Copy the content from the `docker-compose.yml` file in the repo's end folder, to your file.
+    ```
+    version: '3'
+
+    services:
+
+      web:
+        container_name: 'aspnetcore-from-compose'
+        image: 'aspnetcore-from-compose'
+        build:
+          context: .
+          dockerfile: Dockerfile
+        volumes:
+          - .:/app
+        entrypoint: ["sh", "./go.sh"] 
+        ports:
+        - "5000:5000"
+        depends_on:
+        - "postgres"
+        networks:
+          - app-network
+
+      postgres:
+        container_name: 'postgres-from-compose'
+        image: postgres
+        environment:
+          POSTGRES_PASSWORD: pgPassword
+        networks:
+          - app-network
+        volumes:
+          - 'postgres:/var/lib/postgresql/data'
+
+    networks:
+      app-network:
+        driver: bridge
+
+    volumes:
+    postgres: {}
+    ```
+
+1. Modify your Dockerfile to remove the last 3 lines, the 2 that run commands, and the entrypoint. We are defining this in docker-compose now, and calling a script. 
 
 1. Build the images and run them by running this from the command line:
 
@@ -95,6 +134,12 @@ There is a `docker-compose.yml` file in the repo that use Docker Compose to spin
 
     With them running, you should be able to navigate to your web app (or the Web API sample endpoint in this app - http://localhost:8080/api/articles). You should be able to develop as usual on your computer, but when you save, your code is rebuilt in the ASP.NET container, and then run from there. You can try changing the /Controllers/ArticlesController.cs code and see it update at that endpoint, which is being hosted from the ASP.NET container.
 
+## Part 5. Clean up
+
+- `docker rm $(docker rm -a)`
+- `docker rmi $(docker images -f dangling=true)`
+- `docker system prune`
+
 ## Useful commands
 
 - It is useful to log into your containers. To do that, use this: 
@@ -105,3 +150,17 @@ There is a `docker-compose.yml` file in the repo that use Docker Compose to spin
 
     1. Type `docker ps -a` to get the name or ID of your container
     1. Type  `docker logs <container ID or name>`
+
+- Inspect your container(s): 
+
+  `docker inspect <container ID/name>`
+
+- View and manage volumes, 
+
+  - `docker volume ls`
+  - `docker volume inspect <name>`
+
+- View and manage networks, 
+
+  - `docker network ls` 
+  - `docker network inspect <name>`
