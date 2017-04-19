@@ -256,3 +256,4 @@ paket-files/
 *.key
 *.orig
 *.pem
+start/obj/
