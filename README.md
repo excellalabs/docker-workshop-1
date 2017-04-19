@@ -89,11 +89,11 @@ The app will talk to the container with the database engine, use a volume to map
 ```
 version: '3'
 
-services:
+services: # these are all the services that a docker app uses
 
-  web:
+  web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web". 
     container_name: 'aspnetcore-from-compose'
-    image: 'aspnetcore-from-compose'
+    image: 'aspnetcore-from-compose' 
     build:
       context: .
       dockerfile: Dockerfile
@@ -103,9 +103,9 @@ services:
     ports:
     - "5000:5000"
     depends_on:
-    - "postgres"
+    - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service. 
     networks:
-      - app-network
+      - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other.
 
   postgres:
     container_name: 'postgres-from-compose'
