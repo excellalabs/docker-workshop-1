@@ -28,7 +28,11 @@ Objectives:
 
 ## Part 2. Build your own container for an app
 
-1. Create a new file in the root of your source directory, called `Dockerfile` (no extension). 
+1. Clone the repo, `https://github.com/excellalabs/docker-workshop-1`
+
+1. Navigate into the start/ folder, which is the source code for the sample app
+
+1. Create a new file in the source directory called `Dockerfile` (no extension). 
 
     Take a look at the Dockerfile in the repo's end folder. This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET. You can build the ASP.NET Core container from the provided Dockerfile, following these steps. 
 
