@@ -18,11 +18,20 @@ Objectives:
 
     - [Install & set up for Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac?tab=description)
 
+1. On Windows, you will have to share your drive. You can do this by:
+
+* Right-clicking the docker tray icon
+* Selecting `Settings...`
+* On the left-hand side, select `Shared Drives`
+* Check the appropriate drive and click `Apply`
+* Enter your user account's password and click `OK`.
+
 1. Clone this repo for the workshop somewhere, and go into the start/ directory.
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-    `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+  Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+  Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
 
 1. Now you can change your source code, and the container will rebuild and run the app when you save changes. Open the source directory with your favorite IDE and try it.
 
@@ -80,11 +89,11 @@ The app will talk to the container with the database engine, use a volume to map
 ```
 version: '3'
 
-services:
+services: # these are all the services that a docker app uses
 
-  web:
-    container_name: 'aspnetcore-from-compose'
-    image: 'aspnetcore-from-compose'
+  web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web". 
+    container_name: 'aspnetcore-from-compose' # this is the name of the container to us
+    image: 'aspnetcore-from-compose' 
     build:
       context: .
       dockerfile: Dockerfile
@@ -94,9 +103,9 @@ services:
     ports:
     - "5000:5000"
     depends_on:
-    - "postgres"
+    - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service. 
     networks:
-      - app-network
+      - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other. Note all the services we define here use the "app-network" network.
 
   postgres:
     container_name: 'postgres-from-compose'
@@ -134,6 +143,8 @@ volumes:
 
     `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
     
+    **Windows Note**: On Windows in Powershell, `curl.exe` is not included and `curl` is actually mapped to a powershell command called `Invoke-WebRequest`, so it won't have the same behavior. The correct syntax in this case is `curl -Headers @{"Content-Type" = "application/json"} -Uri http://localhost:5000/api/articles -Method POST -Body @{"title" = "I Was Posted"}`
+
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
 1. You should be able to develop as usual on your computer, using the full development workflow with Docker with a real-world-like app. Go ahead and try changing the source code again and saving, and see the app update.
