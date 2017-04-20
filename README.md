@@ -143,7 +143,7 @@ volumes:
 
     `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
     
-    **NOTE**: On Windows in Powershell, `curl` is actually mapped to a powershell command called `Invoke-WebRequest`, so it won't have the same behavior. The correct syntax in this case is `curl -Headers @{"Content-Type" = "application/json"} -Uri http://localhost:5000/api/articles -Method POST -Body @{"title" = "I Was Posted"}`
+    **Windows Note**: On Windows in Powershell, `curl.exe` is not included and `curl` is actually mapped to a powershell command called `Invoke-WebRequest`, so it won't have the same behavior. The correct syntax in this case is `curl -Headers @{"Content-Type" = "application/json"} -Uri http://localhost:5000/api/articles -Method POST -Body @{"title" = "I Was Posted"}`
 
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
