@@ -20,18 +20,18 @@ Objectives:
 
 1. On Windows, you will have to share your drive. You can do this by:
 
-* Right-clicking the docker tray icon
-* Selecting `Settings...`
-* On the left-hand side, select `Shared Drives`
-* Check the appropriate drive and click `Apply`
-* Enter your user account's password and click `OK`.
+    - Right-clicking the docker tray icon
+    - Selecting `Settings...`
+    - On the left-hand side, select `Shared Drives`
+    - Check the appropriate drive and click `Apply`
+    - Enter your user account's password and click `OK`.
 
 1. Clone this repo for the workshop somewhere, and go into the start/ directory.
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-  Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
-  Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
+    - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+    - Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
 
 1. Now you can change your source code, and the container will rebuild and run the app when you save changes. Open the source directory with your favorite IDE and try it.
 
