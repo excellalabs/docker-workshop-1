@@ -92,7 +92,7 @@ version: '3'
 services: # these are all the services that a docker app uses
 
   web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web". 
-    container_name: 'aspnetcore-from-compose'
+    container_name: 'aspnetcore-from-compose' # this is the name of the container to us
     image: 'aspnetcore-from-compose' 
     build:
       context: .
@@ -143,6 +143,8 @@ volumes:
 
     `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
     
+    **NOTE**: On Windows in Powershell, `curl` is actually mapped to a powershell command called `Invoke-WebRequest`, so it won't have the same behavior. The correct syntax in this case is `curl -Headers @{"Content-Type" = "application/json"} -Uri http://localhost:5000/api/articles -Method POST -Body @{"title" = "I Was Posted"}`
+
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
 1. You should be able to develop as usual on your computer, using the full development workflow with Docker with a real-world-like app. Go ahead and try changing the source code again and saving, and see the app update.
