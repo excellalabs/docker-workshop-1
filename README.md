@@ -28,7 +28,7 @@ Objectives:
 
 ## Part 2. Build your own container for an app
 
-1. Ctrl-C to stop the container. In the start/ directory, create a new file in the source directory called `Dockerfile` (no extension). We will continue to use the sample app in this folder for Dockerizing.
+1. Ctrl-C to stop the container. In the start/ directory, create a new file in the source directory called `Dockerfile` (no extension). We will continue to use the sample app in this folder for Dockerizing. Put the follow into this file:
 
       ```
       FROM microsoft/dotnet:1.0.1-sdk-projectjson
@@ -45,11 +45,11 @@ Objectives:
       ENTRYPOINT ["dotnet", "watch", "run"]
       ```
 
-This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET, copying in source code, and building and running the app.
+    This specifies what the container will have, and in this case, it's based on the public .NET Core image. Then it adds some configuration for ASP.NET, copying in source code, and building and running the app.
 
 1. Run this command to build an image from the Dockerfile:
 
-    ```docker build -t <yourTag:YourAspNetImageName> .```
+    `docker build -t <AnyImageNameYouWant> .`
 
 1. See that your image was created correct from the build step above, by listing the images on your machine, by typing `docker images`. You should see it in the list.
 
@@ -124,7 +124,7 @@ volumes:
   ENTRYPOINT ["dotnet", "watch", "run"]
   ```
 
-1. Build the images and run them by running this from the command line:
+2. Build the images and run them by running this from the command line:
 
     `docker-compose up`
 
@@ -166,7 +166,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - It is useful to log into your containers sometimes. To do that, use this:
 
-  `docker exec -ti <Container name> sh`
+  `docker exec -ti <container ID or name> sh`
 
 - Check the logs from your containers:
 
@@ -174,7 +174,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - Inspect your container(s):
 
-  `docker inspect <container ID/name>`
+  `docker inspect <container ID or name>`
 
 - View and manage volumes,
 
