@@ -87,7 +87,7 @@ The app will talk to the container with the database engine, use a volume to map
 1. Create a file in the root of your app source called `docker-compose.yml` and add the following:
 
 ```
-version: '3'
+version: '2'
 
 services: # these are all the services that a docker app uses
 
@@ -136,6 +136,8 @@ volumes:
 2. Build the images and run them by running this from the command line:
 
     `docker-compose up`
+
+1. Windows users, if you get an error referencing the `go.sh` file, it likely has Windows file endings, but needs them to be Linux. You can convert it by opening git bash, and running `dos2unix </path/To/File/go.sh>`
 
 1. Check that your app is running and accessible at [http://localhost:5000/api/articles](http://localhost:5000/api/articles).
 
