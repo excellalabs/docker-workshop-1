@@ -10,7 +10,7 @@ Objectives:
 - Use Compose to run multiple containers easily
 - An accompanying slide deck can be found [here](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-75189136) for delivering this workshop to a group.
 
-## Part 1. Install Docker & Run a Container
+## Part 1a. Install Docker & Run a Container
 
 1. Follow Docker's **installation instructions** for your platform, including the section for **testing it** to ensure it's working.
 
@@ -26,14 +26,20 @@ Objectives:
     - Check the appropriate drive and click `Apply`
     - Enter your user account's password and click `OK`.
 
-1. Clone this repo for the workshop somewhere, and go into the start/ directory.
+1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. Use `docker run` to start a container from an image, from the offical Docker Hub repository. It will download the image if it doesn't find it already in your local Docker repo: 
+  
+      `docker run -d -p 49001:8080 -v $PWD/jenkins:/var/jenkins_home:z -t jenkins`
+
+## Part 1b. Run source code in a container for development work
+
+1. Clone this repo for the workshop somewhere, and go into the **start/** directory.
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
     - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
     - Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
 
-1. Now you can change your source code, and the container will rebuild and run the app when you save changes. Open the source directory with your favorite IDE and try it.
+1. Now you can change your source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
 
 ## Part 2. Build your own container for an app
 
@@ -198,3 +204,11 @@ It's important to clean up unused stopped containers, old images, etc.
 
   - `docker network ls`
   - `docker network inspect <name>`
+
+- Remove stopped containers:
+
+  - `docker rm $(docker ps -a q)`
+
+- Remove all unused containers, volumes, networks and images (both dangling and unreferenced):
+
+  - `docker system prune` (add -a to remomve unnused images, not just dangling)
