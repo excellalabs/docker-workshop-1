@@ -1,20 +1,14 @@
-# Running in a Docker container 
+# Running in a Docker container
 
 This is a getting started workshop for using Docker, and focuses on using it for development since that is a logical and no-risk place to start. We will use an ASP.NET Core app for the exercise, but any app on most stacks that can run on Linux should work. You will be guided through running a container locally from an image in Docker Hub, then putting your own app into a container for it building locally and running it.
 
-We strongly recommend installing Docker for Windows or Linux ahead of the workshop.
+An accompanying slide deck can be found [here](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-75189136) for delivering this workshop to a group.
 
-Objectives: 
-- Get Docker installed and running locally 
-- Run a container from Docker Hub
-- Create a container for building and running the provided sample app locally. The source code will be mounted into the container.
-- Make code changes and go through the development workflow with a container
-- Use Compose to run multiple containers easily
-- An accompanying slide deck can be found [here](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-75189136) for delivering this workshop to a group.
+## Preparation
 
-## Part 1a. Install Docker & Run a Container
+Please go through these steps before the workshop, to ensure you don't spend time with setup, and downloading a large Docker image.
 
-1. Follow Docker's **installation instructions** for your platform, including the section for **testing it** to ensure it's working.
+1. **Install Docker & Run a Container** Follow Docker's **installation instructions** for your platform, including the section for **testing it** to ensure it's working.
 
     - [Install & set up for Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows?tab=description)
 
@@ -28,11 +22,15 @@ Objectives:
     - Check the appropriate drive and click `Apply`
     - Enter your user account's password and click `OK`.
 
-1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. Use `docker run` to start a container from an image, from the offical Docker Hub repository. It will download the image if it doesn't find it already in your local Docker repo: 
-  
-      `docker run -d -p 49001:8080 -v $PWD/jenkins:/var/jenkins_home:z -t jenkins`
+1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. Use `docker run` to start a container from an image, from the offical Docker Hub repository. It will download the image if it doesn't find it already in your local Docker repo:
 
-## Part 1b. Run source code in a container for development work
+    `docker run -d -p 49001:8080 -v $PWD/jenkins:/var/jenkins_home:z -t jenkins`
+
+1. Download the ASP.NET Core development Docker image (wi-fi because it's large), by running this from your terminal:
+
+    `docker pull microsoft/aspnetcore-build`
+
+## Part 1. Run source code in a container for development work
 
 1. Clone this repo for the workshop somewhere, and go into the **start/** directory.
 
