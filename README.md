@@ -1,6 +1,8 @@
 # Running in a Docker container 
 
-We are going to go through using Docker in the devleopment process. We will use an ASP.NET Core app for the exercise, but any app on most stacks should work.
+This is a getting started workshop for using Docker, and focuses on using it for development since that is a logical and no-risk place to start. We will use an ASP.NET Core app for the exercise, but any app on most stacks that can run on Linux should work. You will be guided through running a container locally from an image in Docker Hub, then putting your own app into a container for it building locally and running it.
+
+We strongly recommend installing Docker for Windows or Linux ahead of the workshop.
 
 Objectives: 
 - Get Docker installed and running locally 
