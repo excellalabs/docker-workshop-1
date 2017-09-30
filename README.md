@@ -14,7 +14,7 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
     - [Install & set up for Mac](https://store.docker.com/editions/community/docker-ce-desktop-mac?tab=description)
 
-1. On Windows, you will have to share your drive. You can do this by:
+1. **On Windows only**, you will have to share your drive. You can do this by:
 
     - Right-clicking the docker tray icon
     - Selecting `Settings...`
@@ -22,7 +22,7 @@ Please go through these steps before the workshop, to ensure you don't spend tim
     - Check the appropriate drive and click `Apply`
     - Enter your user account's password and click `OK`.
 
-1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. Use `docker run` to start a container from an image, from the offical Docker Hub repository. It will download the image if it doesn't find it already in your local Docker repo:
+1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. It will download the image from Docker Hub if it doesn't find it already in your local Docker repo:
 
     `docker run -d -p 49001:8080 -v $PWD/jenkins:/var/jenkins_home:z -t jenkins`
 
