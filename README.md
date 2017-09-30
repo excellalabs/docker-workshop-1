@@ -22,11 +22,11 @@ Please go through these steps before the workshop, to ensure you don't spend tim
     - Check the appropriate drive and click `Apply`
     - Enter your user account's password and click `OK`.
 
-1. Try running the offical Jenkins container to see how easy it is to start a container with a service, using Docker. It will download the image from Docker Hub if it doesn't find it already in your local Docker repo:
+1. **Test the installation by running the offical Jenkins container**. It will download the image from Docker Hub if it doesn't find it already in your local Docker repo:
 
     `docker run -d -p 49001:8080 -v $PWD/jenkins:/var/jenkins_home:z -t jenkins`
 
-1. Download the ASP.NET Core development Docker image (wi-fi because it's large), by running this from your terminal:
+1. **Download the ASP.NET Core development Docker image** (wi-fi because it's large), by running this from your terminal:
 
     `docker pull microsoft/aspnetcore-build`
 
