@@ -46,13 +46,13 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 1. Ctrl-C to stop the container. In the start/ directory, create a new file in the source directory called `Dockerfile` (no extension). We will continue to use the sample app in this folder for Dockerizing. Put the follow into this file:
 
       ```
-      FROM microsoft/dotnet:1.0.1-sdk-projectjson
+      FROM microsoft/aspnetcore-build:latest
 
       EXPOSE 5000/tcp
 
       ENV ASPNETCORE_URLS http://*:5000
 
-      COPY . /app 
+      COPY . /app
       WORKDIR /app
 
       RUN ["dotnet", "restore"]
@@ -97,19 +97,19 @@ version: '2'
 
 services: # these are all the services that a docker app uses
 
-  web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web". 
+  web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web".
     container_name: 'aspnetcore-from-compose' # this is the name of the container to us
-    image: 'aspnetcore-from-compose' 
+    image: 'aspnetcore-from-compose'
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    entrypoint: ["sh", "./go.sh"] 
+    entrypoint: ["sh", "./go.sh"]
     ports:
     - "5000:5000"
     depends_on:
-    - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service. 
+    - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service.
     networks:
       - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other. Note all the services we define here use the "app-network" network.
 
@@ -179,7 +179,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
   `docker ps -a`
 
-- List your images: 
+- List your images:
 
   `docker images`
 
