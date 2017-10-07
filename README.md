@@ -105,7 +105,6 @@ services: # these are all the services that a docker app uses
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    entrypoint: ["sh", "./go.sh"]
     ports:
     - "5000:5000"
     depends_on:
@@ -131,15 +130,7 @@ volumes:
   postgres: {}
 ```
 
-1. Modify your Dockerfile to remove these (last 3) lines. We are defining this in docker-compose now, and calling a script:
-
-  ```
-  RUN ["dotnet", "restore"]
-  RUN ["dotnet", "build"]
-  ENTRYPOINT ["dotnet", "watch", "run"]
-  ```
-
-2. Build the images and run them by running this from the command line:
+1. Build the images and run them by running this from the command line:
 
     `docker-compose up`
 
