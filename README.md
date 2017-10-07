@@ -36,8 +36,8 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-    - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
-    - Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
+    - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t microsoft/aspnetcore-build`
+    - Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t microsoft/aspnetcore-build`
 
 1. Now you can change your source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
 
