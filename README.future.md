@@ -80,7 +80,7 @@ Use the following docker run command, specifying a port binding for listening, t
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
-1. Check that the app is running and accessible by browsing to [http://localhost:5000/api/values](http://localhost:5000/api/helloworld)
+1. Check that the app is running and accessible by browsing to [http://localhost:5000/api/helloworld](http://localhost:5000/api/helloworld)
 
 ## Part 4. Docker Compose
 
@@ -134,7 +134,15 @@ volumes:
 
     `docker-compose up`
 
-1. Check that your app is running and accessible at [http://localhost:5000/api/values](http://localhost:5000/api/articles).
+1. Windows users, if you get an error referencing the `go.sh` file, it likely has Windows file endings, but needs them to be Linux. You can convert it by opening git bash, and running `dos2unix </path/To/File/go.sh>`
+
+1. Check that your app is running and accessible at [http://localhost:5000/api/articles](http://localhost:5000/api/articles).
+
+1. Now that you have a databasec contianer running, you can add some data and then query it. Run this to add some then reload the URL,
+
+    `curl -H "Content-Type: application/json" -X POST -d '{"title":"I Was Posted"}' http://localhost:5000/api/articles`
+    
+    **Windows Note**: On Windows in Powershell, `curl.exe` is not included and `curl` is actually mapped to a powershell command called `Invoke-WebRequest`, so it won't have the same behavior. The correct syntax in this case is `curl -Headers @{"Content-Type" = "application/json"} -Uri http://localhost:5000/api/articles -Method POST -Body @{"title" = "I Was Posted"}`
 
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
