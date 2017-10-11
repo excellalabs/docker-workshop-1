@@ -146,11 +146,11 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - Remove all stopped containers:
 
-  `docker rm $(docker rm -a)`
+  `docker container rm $(docker container la -a -q)`
 
 - Remove all dangling images:
 
-  `docker rmi $(docker images -f dangling=true)`
+  `docker image rm $(docker images -f dangling=true)`
 
 - Remove all unused containers, volumes, networks and dangling images (add -a to remove any unreferenced images as well):
 
@@ -160,7 +160,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - List your containers (-a shows stopped ones too):
 
-  `docker ps -a`
+  `docker container ls -a` (docker ps is deprecated)
 
 - List your images:
 
