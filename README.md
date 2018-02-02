@@ -37,7 +37,7 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
     - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t microsoft/aspnetcore-build`
-    - Windows: `docker run -it -p 5000:5000 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t microsoft/aspnetcore-build`
+    - Windows PowerShell: `docker run -it -p 5000:5000 -v $PWD:/app -t microsoft/aspnetcore-build`
 
 1. Now you can change your source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
 
@@ -76,11 +76,8 @@ Use the following docker run command, specifying a port binding for listening, t
 
 1. Go to your ASP.NET Core app's directory (or an empty directory for a new app)
 
-    `docker run -it -p 5000:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
-
-    Windows:
-
-    `docker run -it -p 5000:5000 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t <yourTag:YourAspNetImageName>`
+    - Mac/Linux: `docker run -it -p 5000:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
+    - Windows PowerShell: `docker run -it -p 5000:5000 -v $PWD:/app -t <yourTag:YourAspNetImageName>`
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
