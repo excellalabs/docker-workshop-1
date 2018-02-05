@@ -38,21 +38,28 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
   *Mac/Linux*:
 
-    Build & publish
-    ```bash
-    docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
-    ```
+  Build & publish
+  ```bash
+  docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
+  ```
 
-    Run app
-    `docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+  Run app
+  ```bash
+  docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
+  ```
 
   *Windows*:
 
-    Build and publish
-    `docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+  Build and publish
 
-    Run app
-    `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+  ```bash
+  docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
+  ```
+
+  Run app
+  ```bash
+    docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
+  ```
 
 
 1. Now you can change the source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
