@@ -36,21 +36,21 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
 1. To run the source code inside an existing container from a Docker Hub image, run this Docker command from your command line:
 
-Mac/Linux:
+  *Mac/Linux*:
 
-  Build & publish
-  `docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+    Build & publish
+    `docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
 
-  Run app
-  `docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+    Run app
+    `docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
 
-Windows:
+  *Windows*:
 
-  Build and publish
-  `docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+    Build and publish
+    `docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
 
-  Run app
-  `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+    Run app
+    `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
 
 
 1. Now you can change the source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
