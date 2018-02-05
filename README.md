@@ -32,14 +32,28 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
 ## Part 1. Run source code in a container for development work
 
-1. Clone this repo for the workshop somewhere, and go into the **start/** directory.
+1. Clone this repo for the workshop somewhere, and go into the **start/** directory, which has a hello world app.
 
-1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
+1. To run the source code inside an existing container from a Docker Hub image, run this Docker command from your command line:
 
-    - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t microsoft/aspnetcore-build`
-    - Windows: `docker run -it -p 5000:5000 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t microsoft/aspnetcore-build`
+Mac/Linux:
 
-1. Now you can change your source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
+  Build & publish
+  `docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+
+  Run app
+  `docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+
+Windows:
+
+  Build and publish
+  `docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+
+  Run app
+  `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
+
+
+1. Now you can change the source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
 
 ## Part 2. Build your own container for an app
 
@@ -76,15 +90,15 @@ Use the following docker run command, specifying a port binding for listening, t
 
 1. Go to your ASP.NET Core app's directory (or an empty directory for a new app)
 
-    `docker run -it -p 5000:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
+    `docker run -it -p 80:80 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
 
     Windows:
 
-    `docker run -it -p 5000:5000 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t <yourTag:YourAspNetImageName>`
+    `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t <yourTag:YourAspNetImageName>`
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
-1. Check that the app is running and accessible by browsing to [http://localhost:5000/api/values](http://localhost:5000/api/helloworld)
+1. Check that the app is running and accessible by browsing to [http://localhost/api/values](http://localhost/api/helloworld)
 
 ## Part 4. Docker Compose
 
@@ -110,7 +124,7 @@ services: # these are all the services that a docker app uses
     volumes:
       - .:/app
     ports:
-    - "5000:5000"
+    - "80:80"
     depends_on:
     - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service.
     networks:

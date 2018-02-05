@@ -1,8 +1,8 @@
 FROM microsoft/aspnetcore-build:latest
 
-EXPOSE 5000/tcp
+EXPOSE 80/tcp
 
-ENV ASPNETCORE_URLS http://*:5000
+ENV ASPNETCORE_URLS http://*:80
 
 COPY . /app
 WORKDIR /app
