@@ -39,7 +39,9 @@ Please go through these steps before the workshop, to ensure you don't spend tim
   *Mac/Linux*:
 
     Build & publish
-    `docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"`
+    ```bash
+    docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
+    ```
 
     Run app
     `docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"`
