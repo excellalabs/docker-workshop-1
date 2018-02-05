@@ -61,8 +61,9 @@ Please go through these steps before the workshop, to ensure you don't spend tim
     docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
   ```
 
+1. Now you can navigate to the app at [http://localhost/api/values](http://localhost/api/values).
 
-1. Now you can change the source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
+1. You can change the source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it - change the Controllers/ValuesController Get() method to return something else, save it, then relead the browser when it's finished rebuilding per the console.
 
 ## Part 2. Build your own container for an app
 
