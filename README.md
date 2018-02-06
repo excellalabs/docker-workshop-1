@@ -218,7 +218,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - Remove stopped containers:
 
-  - `docker rm $(docker ps -a q)`
+  - `docker container rm $(docker ps -a q)`
 
 - Remove all unused containers, volumes, networks and images (both dangling and unreferenced):
 
