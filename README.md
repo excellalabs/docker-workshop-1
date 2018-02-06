@@ -40,12 +40,12 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
   Build & publish
   ```bash
-  docker run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
+  docker container run -it -v $(pwd):/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
   ```
 
   Run app
   ```bash
-  docker run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
+  docker container run -it -p 80:80 -v $(pwd):/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
   ```
 
   *Windows*:
@@ -53,12 +53,12 @@ Please go through these steps before the workshop, to ensure you don't spend tim
   Build and publish
 
   ```bash
-  docker run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
+  docker container run -it -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app microsoft/aspnetcore-build bash -c "dotnet restore && dotnet publish -c Release -o ./bin/Release/PublishOutput"
   ```
 
   Run app
   ```bash
-    docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
+    docker container run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app --workdir /app -t microsoft/aspnetcore-build bash -c "dotnet run"
   ```
 
 1. Now you can navigate to the app at [http://localhost/api/values](http://localhost/api/values).
@@ -88,7 +88,7 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
 1. Run this command to build an image from the Dockerfile:
 
-    `docker build -t <AnyImageNameYouWant> .`
+    `docker image build -t <AnyImageNameYouWant> .`
 
 1. See that your image was created correct from the build step above, by listing the images on your machine, by typing `docker images`. You should see it in the list.
 
@@ -100,11 +100,11 @@ Use the following docker run command, specifying a port binding for listening, t
 
 1. Go to your ASP.NET Core app's directory (or an empty directory for a new app)
 
-    `docker run -it -p 80:80 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
+    `docker container run -it -p 80:80 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
 
     Windows:
 
-    `docker run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t <yourTag:YourAspNetImageName>`
+    `docker container run -it -p 80:80 -v /C/<PATH TO CLONE docker-workshop-1>/start:/app -t <yourTag:YourAspNetImageName>`
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
