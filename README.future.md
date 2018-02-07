@@ -36,8 +36,8 @@ Please go through these steps before the workshop, to ensure you don't spend tim
 
 1. To run an existing container from a Docker Hub image, to try out running a container, run this Docker command from your command line:
 
-    - Mac/Linux:  `docker run -it -p 5000:5000 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
-    - Windows: `docker run -it -p 5000:5000 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
+    - Mac/Linux:  `docker run -it -p 80:80 -v $(pwd):/app -t wyntuition/aspnetcore-development-env`
+    - Windows: `docker run -it -p 80:80 -v /C/path/to/repo/docker-workshop-1/start:/app -t wyntuition/aspnetcore-development-env`
 
 1. Now you can change your source code, and the container will rebuild and run the code when you save changes. Open the source directory with your favorite IDE and try it.
 
@@ -76,11 +76,11 @@ Use the following docker run command, specifying a port binding for listening, t
 
 1. Go to your ASP.NET Core app's directory (or an empty directory for a new app)
 
-    `docker run -it -p 5000:5000 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
+    `docker run -it -p 80:80 -v $(pwd):/app -t <yourTag:YourAspNetImageName>`
 
     Now you can code in your host environment using your IDE as usual, and the container will receive any file changes since your application directory is mounted into the container. 
 
-1. Check that the app is running and accessible by browsing to [http://localhost:5000/api/helloworld](http://localhost:5000/api/helloworld)
+1. Check that the app is running and accessible by browsing to [http://localhost:80/api/helloworld](http://localhost:5000/api/helloworld)
 
 ## Part 4. Docker Compose
 
@@ -106,7 +106,7 @@ services: # these are all the services that a docker app uses
     volumes:
       - .:/app
     ports:
-    - "5000:5000"
+    - "80:80"
     depends_on:
     - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service.
     networks:
@@ -136,7 +136,7 @@ volumes:
 
 1. Windows users, if you get an error referencing the `go.sh` file, it likely has Windows file endings, but needs them to be Linux. You can convert it by opening git bash, and running `dos2unix </path/To/File/go.sh>`
 
-1. Check that your app is running and accessible at [http://localhost:5000/api/articles](http://localhost:5000/api/articles).
+1. Check that your app is running and accessible at [http://localhost:80/api/articles](http://localhost:5000/api/articles).
 
 1. Now that you have a databasec contianer running, you can add some data and then query it. Run this to add some then reload the URL,
 
