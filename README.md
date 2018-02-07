@@ -72,9 +72,9 @@ Please go through these steps before the workshop, to ensure you don't spend tim
       ```
       FROM microsoft/aspnetcore-build:latest
 
-      EXPOSE 5000/tcp
+      EXPOSE 80/tcp
 
-      ENV ASPNETCORE_URLS http://*:5000
+      ENV ASPNETCORE_URLS http://*:80
 
       COPY . /app
       WORKDIR /app
@@ -162,7 +162,7 @@ volumes:
 
     `docker-compose up`
 
-1. Check that your app is running and accessible at [http://localhost:5000/api/values](http://localhost:5000/api/articles).
+1. Check that your app is running and accessible at [http://localhost/api/values](http://localhost/api/articles).
 
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
