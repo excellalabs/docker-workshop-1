@@ -55,8 +55,10 @@ The app will talk to the container with the database engine, use a volume to map
 
 1. Check that your app is running and accessible at [http://localhost/api/values](http://localhost/api/articles).
 
-1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them. If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
+1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them so go ahead and do that. 
+
+Note, If you run them in the background, you can use `docker-compose stop`. If you need to rebuild the image because you changed the Dockerfile/etc, you can use `docker-compose up --build`. If you want to remove the containers it creates, you can use `docker-compose down`.
  
-1. You should be able to develop as usual on your computer, using the full development workflow with Docker with a real-world-like app. Go ahead and try changing the source code again and saving, and see the app update.
+1. Summary: you should be able to develop as usual on your computer, using the full development workflow with Docker with a real-world-like app. Go ahead and start the app back up with `docker-compose up` and try changing the source code again and saving, and see the app update.
 
 [Go to Part 5](README-part5.md)
