@@ -9,7 +9,7 @@ The app will talk to the container with the database engine, use a volume to map
 1. Create a file in the root of your app source called `docker-compose.yml` and add the following:
 
     ```
-    version: '2'
+    version: '3.6'
 
     services: # these are all the services that a docker app uses
 
