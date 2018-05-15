@@ -8,43 +8,43 @@ The app will talk to the container with the database engine, use a volume to map
 
 1. Create a file in the root of your app source called `docker-compose.yml` and add the following:
 
-```
-version: '2'
+    ```
+    version: '2'
 
-services: # these are all the services that a docker app uses
+    services: # these are all the services that a docker app uses
 
-  web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web".
-    container_name: 'aspnetcore-from-compose' # this is the name of the container to us
-    image: 'aspnetcore-from-compose'
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
-    ports:
-    - "80:80"
-    depends_on:
-    - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service.
+      web: # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web".
+        container_name: 'aspnetcore-from-compose' # this is the name of the container to us
+        image: 'aspnetcore-from-compose'
+        build:
+          context: .
+          dockerfile: Dockerfile
+        volumes:
+          - .:/app
+        ports:
+        - "80:80"
+        depends_on:
+        - "postgres" # this makes sure that the postgres service below has been started prior to attempting to start this service.
+        networks:
+          - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other. Note all the services we define here use the "app-network" network.
+
+      postgres:
+        container_name: 'postgres-from-compose'
+        image: postgres
+        environment:
+          POSTGRES_PASSWORD: password
+        networks:
+          - app-network
+        volumes:
+          - 'postgres:/var/lib/postgresql/data'
+
     networks:
-      - app-network # this is a docker feature to allow you to place your various services within a virtual network so they can talk to each other. Note all the services we define here use the "app-network" network.
+      app-network:
+        driver: bridge
 
-  postgres:
-    container_name: 'postgres-from-compose'
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: password
-    networks:
-      - app-network
     volumes:
-      - 'postgres:/var/lib/postgresql/data'
-
-networks:
-  app-network:
-    driver: bridge
-
-volumes:
-  postgres: {}
-```
+      postgres: {}
+    ```
 
 1. Build the images and run them by running this from the command line:
 
