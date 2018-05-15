@@ -53,7 +53,7 @@ The app will talk to the container with the database engine, use a volume to map
 
     `docker-compose up`
 
-1. Check that your app is running and accessible at [http://localhost/api/values](http://localhost/api/articles).
+1. Check that your app is running and accessible at [http://localhost/api/values](http://localhost/api/values).
 
 1. Stop the containers: when you run a container(s) with docker or docker-compose in the foreground (i.e. without the -d flag), Ctrl-C will stop them so go ahead and do that. 
 
