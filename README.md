@@ -174,7 +174,7 @@ It's important to clean up unused stopped containers, old images, etc.
 
 - Remove all stopped containers:
 
-  `docker container rm $(docker container la -a -q)`
+  `docker container rm $(docker container ls -a -q)`
 
 - Remove all dangling images:
 
