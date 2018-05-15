@@ -21,7 +21,7 @@
 
 1. Run this command to build an image from the Dockerfile:
 
-    `docker image build -t <AnyImageNameYouWant> .`
+    `docker image build -t my-app .`
 
 1. See that your image was created correct from the build step above, by listing the images on your machine, by typing `docker images`. You should see it in the list.
 

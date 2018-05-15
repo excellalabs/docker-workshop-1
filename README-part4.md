@@ -15,8 +15,8 @@ The app will talk to the container with the database engine, use a volume to map
 
       # this is the name of the service we're creating; it's chosen by us. Here, we're calling it "web"
       web: 
-        container_name: 'aspnetcore-from-compose' # this is the name of the container to us
-        image: 'aspnetcore-from-compose'
+        container_name: 'my-app-from-compose' # this is the name of the container to us
+        image: 'my-app-from-compose'
         build:
           context: .
           dockerfile: Dockerfile
