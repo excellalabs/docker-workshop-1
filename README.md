@@ -2,7 +2,7 @@
 
 This is a getting started workshop for using Docker, and focuses on using it for development since that is a logical and no-risk place to start. We will use an ASP.NET Core app for the exercise, but any app on most stacks that can run on Linux should work. You will be guided through running a container from an image from Docker Hub. Then you'll create your own image & container, in order to build and run an app inside the container, without having to install anything locally except Docker.
 
-Here's an accompanying [slide deck](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-75189136) and [course outline](OUTLINE.md), for delivering this workshop to a group.
+Here's an accompanying [slide deck](https://www.slideshare.net/wynvandevanter/developer-workflow-with-docker-97283659) and [course outline](OUTLINE.md), for delivering this workshop to a group.
 
 ## Preparation
 
