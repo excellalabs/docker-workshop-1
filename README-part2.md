@@ -1,4 +1,4 @@
-## Part 2. Build your own container for an app
+## Part 2. Build your own image for an app
 
 1. Ctrl-C to stop the container. In the start/ directory, create a new file in the source directory called `Dockerfile` (no extension). We will continue to use the sample app in this folder for Dockerizing. Put the follow into this file:
 
