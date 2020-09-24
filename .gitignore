@@ -256,3 +256,6 @@ paket-files/
 *.key
 *.orig
 *.pem
+
+# Workshop-specific files
+start/obj/
